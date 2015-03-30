@@ -8,13 +8,15 @@ Synthesizing Tasks
 :College: CUNY School of Professional Studies
 :Course-Name: Software Application Programming I
 :Course-Code: IS 210
-:Points: ##
+:Points: 16
 :Due-Date: YYYY-MM-DDTHH:mm:ss
 
 Overview
 ========
 
-[overview]
+One of the biggest benefits to using dictionaries is their ability to allow
+data to be easily related. These exercises will demonstrate some cases where
+the lookup capability is useful.
 
 Instructions
 ============
@@ -41,24 +43,91 @@ files that you create!
 Synthesizing Tasks
 ==================
 
-Task ##
+Task 01
 -------
 
-[description of task]
+In this task, you'll be correlating two related data sets. The data is
+structured in a tabular relationship not unlike what me found in a SQL
+database. As such, we'll be correlating data in a manner similar to a SQL query
+with a foreign key join.
+
+Generally, when strictly relating data, SQL is a better choice. However, the
+functional and programmatic capabilities of Python far outweigh the simple
+capabilities exposed in SQL. While this example will not demonstrate these
+capabilities in the interest of keeping the complexity of the task achievable,
+you should nonetheless note of the similarity.
+
+A major topic area of application design revolves around working with databases
+and the dictionary plays a major role in this. Some important acronyms you
+might encounter are DBAL (Database Access Layer) and ORM (Object Relational
+Mapping). There are many different implementations of DBAL's and ORM's but
+nearly all use the Python dict to represent a row.
 
 Specifications
 ^^^^^^^^^^^^^^
 
-[step-by-step directions of the task]
+1.  Create a module named ``task_01.py``
+
+2.  Create a function named ``sum_orders()`` that takes two parameters
+
+    1.  customers (dict): A dictionary of customers keyed by customer_id
+
+    2.  orders (dict): A dictionary of orders keyed by order id
+
+3.  Combine the two datasets into a single dictionary keyed by ``customer_id``
+    with the following fields in an inner dictionary:
+
+    1.  ``'name'``, the customer name
+
+    2.  ``'email'``, the customer email
+
+    3.  ``'orders'``, the number of orders for a particular customer as found
+        in the ``orders`` parameter
+
+    4.  ``'total'``, the sum of all orders for a particular customer as found
+        in the ``orders`` parameter
+
+4.  Return the combined dictionary
 
 Examples
 ^^^^^^^^
 
-[examples of the work in-progress]
+An example of the customers parameter may be found in ``data.py`` and resembles
+the following:
+
+.. code:: python
+
+    {
+        customer_id: {'name': 'Some Name', 'email': 'some@email.com'},
+    }
+
+An example of the orders parameter may be found in ``data.py`` and resembles
+the following:
+
+.. code:: python
+
+    {
+        order_id: {'customer_id': customer_id, 'total': order_total},
+    }
+
+Example execution of this function is as below:
 
 .. code:: pycon
 
-    >>>
+    >>> ORDERS = {1: {'customer_id': 2, 'total': 10},
+                  3: {'customer_id': 2, 'total': 10},
+                  4: {'customer_id': 3, 'total': 15}}
+    >>> CUSTOMERS = {2: {'name': 'Person One', 'email': 'email@one.com'},
+                     3: {'name': 'Person Two', 'email': 'email@two.com'}}
+    >>> sum_orders(customers=CUSTOMERS, orders=ORDERS)
+    {2: {'name': 'Person One', 
+         'email': 'email@one.com',
+         'orders': 2,
+         'total': 20}
+     3: {'name': 'Person Two',
+         'email': 'email@two.com',
+         'orders': 1,
+         'total': 15}}
 
 Executing Tests
 ===============
